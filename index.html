@@ -1,588 +1,910 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Para Anafé 🌼</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            width: 100%;
-            min-height: 100vh;
-            overflow: hidden;
-            background:
-                radial-gradient(circle at center, #301a35 0%, #170c1c 70%);
-            color: white;
-            font-family: Georgia, "Times New Roman", serif;
-        }
-
-        /* =========================
-           PORTADA
-        ========================= */
-
-        .portada {
-            position: fixed;
-            inset: 0;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            z-index: 20;
-
-            transition:
-                opacity 1.5s ease,
-                transform 1.5s ease;
-        }
-
-        .portada.oculta {
-            opacity: 0;
-            transform: scale(1.08);
-            pointer-events: none;
-        }
-
-        .pequena-decoracion {
-            font-size: 20px;
-            margin-bottom: 25px;
-            opacity: 0.8;
-        }
-
-        .titulo {
-            font-size: clamp(3.5rem, 11vw, 7rem);
-            font-weight: normal;
-            font-style: italic;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #ff9fcf,
-                    #c99cff,
-                    #a9e8b5,
-                    #ff9fcf
-                );
-
-            background-size: 300% 300%;
-
-            -webkit-background-clip: text;
-            background-clip: text;
-
-            color: transparent;
-
-            animation: colores 6s ease infinite;
-
-            margin-bottom: 45px;
-        }
-
-        .boton-abrir {
-            padding: 14px 42px;
-
-            border: 1px solid rgba(255,255,255,0.35);
-            border-radius: 50px;
-
-            background: rgba(255,255,255,0.08);
-            color: white;
-
-            font-size: 17px;
-            cursor: pointer;
-
-            backdrop-filter: blur(10px);
-
-            transition: 0.4s ease;
-        }
-
-        .boton-abrir:hover {
-            transform: scale(1.08);
-            background: rgba(255,255,255,0.16);
-            box-shadow: 0 0 35px rgba(255,180,220,0.25);
-        }
-
-
-        /* =========================
-           ESCENA DE LAS FLORES
-        ========================= */
-
-        .escena {
-            position: fixed;
-            inset: 0;
-
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-
-            opacity: 0;
-            pointer-events: none;
-
-            transition: opacity 2s ease;
-        }
-
-        .escena.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-
-        /* =========================
-           TALLO PRINCIPAL
-        ========================= */
-
-        .tallo-principal {
-            position: absolute;
-
-            width: 7px;
-            height: 0;
-
-            bottom: 0;
-            left: 50%;
-
-            transform: translateX(-50%);
-
-            background:
-                linear-gradient(
-                    to top,
-                    #254d2c,
-                    #4f8b4f
-                );
-
-            border-radius: 10px;
-
-            box-shadow:
-                0 0 8px rgba(110,180,100,0.25);
-
-            animation:
-                crecer-tallo 3s ease forwards;
-        }
-
-
-        /* =========================
-           RAMAS
-        ========================= */
-
-        .rama {
-            position: absolute;
-
-            width: 5px;
-            height: 0;
-
-            background: #477b47;
-
-            border-radius: 10px;
-
-            transform-origin: bottom;
-        }
-
-        .rama1 {
-            bottom: 28%;
-            left: 50%;
-
-            transform:
-                rotate(-35deg);
-
-            animation:
-                crecer-rama 1.5s ease 2.3s forwards;
-        }
-
-        .rama2 {
-            bottom: 38%;
-            left: 50%;
-
-            transform:
-                rotate(35deg);
-
-            animation:
-                crecer-rama 1.5s ease 2.7s forwards;
-        }
-
-        .rama3 {
-            bottom: 49%;
-            left: 50%;
-
-            transform:
-                rotate(-28deg);
-
-            animation:
-                crecer-rama 1.5s ease 3.1s forwards;
-        }
-
-        .rama4 {
-            bottom: 58%;
-            left: 50%;
-
-            transform:
-                rotate(27deg);
-
-            animation:
-                crecer-rama 1.5s ease 3.4s forwards;
-        }
-
-
-        /* =========================
-           FLORES
-        ========================= */
-
-        .flor {
-            position: absolute;
-
-            font-size: 0;
-
-            transform: scale(0);
-
-            animation:
-                aparecer-flor 1.4s ease forwards;
-        }
-
-        .flor::before {
-            content: "🌼";
-
-            font-size: 65px;
-
-            filter:
-                drop-shadow(
-                    0 0 12px
-                    rgba(255,220,70,0.25)
-                );
-        }
-
-        .flor1 {
-            left: calc(50% - 115px);
-            bottom: 53%;
-
-            animation-delay: 3.7s;
-        }
-
-        .flor2 {
-            left: calc(50% + 55px);
-            bottom: 63%;
-
-            animation-delay: 4s;
-        }
-
-        .flor3 {
-            left: calc(50% - 45px);
-            bottom: 72%;
-
-            animation-delay: 4.3s;
-        }
-
-        .flor4 {
-            left: calc(50% + 105px);
-            bottom: 45%;
-
-            animation-delay: 4.6s;
-        }
-
-        .flor5 {
-            left: calc(50% - 165px);
-            bottom: 43%;
-
-            animation-delay: 4.9s;
-        }
-
-
-        /* =========================
-           MENSAJE
-        ========================= */
-
-        .mensaje {
-            position: absolute;
-
-            top: 8%;
-            left: 50%;
-
-            transform:
-                translateX(-50%)
-                translateY(20px);
-
-            width: min(90%, 600px);
-
-            text-align: center;
-
-            opacity: 0;
-
-            animation:
-                aparecer-mensaje
-                2s ease
-                6s forwards;
-        }
-
-        .mensaje h2 {
-            font-size: clamp(1.4rem, 4vw, 2rem);
-
-            font-weight: normal;
-
-            margin-bottom: 20px;
-
-            color: #ffe6a6;
-        }
-
-        .mensaje p {
-            font-size: clamp(1rem, 3vw, 1.25rem);
-
-            line-height: 1.8;
-
-            color: rgba(255,255,255,0.88);
-        }
-
-        .mensaje strong {
-            display: block;
-
-            margin-top: 15px;
-
-            color: #ffb6d9;
-
-            font-size: 1.25em;
-        }
-
-
-        /* =========================
-           DAME CLICK
-        ========================= */
-
-        .spotify {
-            position: absolute;
-
-            bottom: 5%;
-
-            left: 50%;
-
-            transform:
-                translateX(-50%)
-                translateY(20px);
-
-            opacity: 0;
-
-            animation:
-                aparecer-mensaje
-                2s ease
-                8s forwards;
-        }
-
-        .spotify a {
-            color: #d8b4ff;
-
-            text-decoration: none;
-
-            font-size: 18px;
-
-            letter-spacing: 1px;
-
-            padding: 10px 22px;
-
-            border-radius: 30px;
-
-            transition: 0.4s ease;
-        }
-
-        .spotify a:hover {
-            color: #ffb8da;
-
-            text-shadow:
-                0 0 15px
-                rgba(255,180,220,0.7);
-        }
-
-
-        /* =========================
-           ANIMACIONES
-        ========================= */
-
-        @keyframes crecer-tallo {
-
-            from {
-                height: 0;
-            }
-
-            to {
-                height: 72vh;
-            }
-        }
-
-        @keyframes crecer-rama {
-
-            from {
-                height: 0;
-            }
-
-            to {
-                height: 150px;
-            }
-        }
-
-        @keyframes aparecer-flor {
-
-            0% {
-                transform: scale(0)
-                           rotate(-20deg);
-
-                opacity: 0;
-            }
-
-            70% {
-                transform: scale(1.15)
-                           rotate(5deg);
-
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(1)
-                           rotate(0deg);
-
-                opacity: 1;
-            }
-        }
-
-        @keyframes aparecer-mensaje {
-
-            from {
-                opacity: 0;
-
-                transform:
-                    translateX(-50%)
-                    translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-
-                transform:
-                    translateX(-50%)
-                    translateY(0);
-            }
-        }
-
-        @keyframes colores {
-
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-
-        /* =========================
-           CELULAR
-        ========================= */
-
-        @media (max-width: 600px) {
-
-            .tallo-principal {
-                width: 5px;
-            }
-
-            .flor::before {
-                font-size: 48px;
-            }
-
-            .flor1 {
-                left: calc(50% - 85px);
-            }
-
-            .flor2 {
-                left: calc(50% + 35px);
-            }
-
-            .flor3 {
-                left: calc(50% - 25px);
-            }
-
-            .flor4 {
-                left: calc(50% + 65px);
-            }
-
-            .flor5 {
-                left: calc(50% - 120px);
-            }
-
-            .mensaje {
-                top: 6%;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Anafé 🌼</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    overflow-x:hidden;
+    background:
+        radial-gradient(circle at 50% 70%, #32152f 0%, #190d1d 45%, #0d0710 100%);
+    color:#f8e9d1;
+    font-family:'Cormorant Garamond',serif;
+}
+
+/* =========================
+   FONDO
+========================= */
+
+#app{
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+.glow{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(255,190,90,.10),transparent 65%);
+    left:50%;
+    top:55%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+}
+
+.spark{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:#ffd98c;
+    border-radius:50%;
+    box-shadow:0 0 10px #ffd98c;
+    opacity:.7;
+    animation:twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%,100%{opacity:.15;transform:scale(.6)}
+    50%{opacity:1;transform:scale(1.3)}
+}
+
+/* =========================
+   PORTADA
+========================= */
+
+#portada{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    transition:opacity 1s ease, transform 1s ease;
+    position:relative;
+    z-index:20;
+}
+
+#portada.oculta{
+    opacity:0;
+    transform:scale(1.04);
+    pointer-events:none;
+}
+
+.portada-contenido{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:22px;
+}
+
+.flor-mini{
+    width:60px;
+    height:60px;
+    filter:drop-shadow(0 0 12px rgba(255,190,70,.45));
+}
+
+.para{
+    font-size:2rem;
+    letter-spacing:3px;
+}
+
+.anafe{
+    font-family:'Great Vibes',cursive;
+    font-size:clamp(4rem,10vw,7rem);
+    line-height:.8;
+    color:#ffd5c5;
+    text-shadow:
+        0 0 15px rgba(255,170,150,.25),
+        0 0 35px rgba(190,110,170,.18);
+}
+
+.subtitulo{
+    color:#cbb4c7;
+    font-size:1rem;
+    letter-spacing:3px;
+    margin-top:5px;
+}
+
+.abrir{
+    margin-top:20px;
+    padding:13px 38px;
+    border:1px solid rgba(255,190,180,.75);
+    border-radius:50px;
+    background:rgba(255,255,255,.035);
+    color:#ffe7dc;
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.25rem;
+    cursor:pointer;
+    transition:.35s ease;
+    box-shadow:
+        0 0 15px rgba(255,150,160,.08),
+        inset 0 0 15px rgba(255,255,255,.02);
+}
+
+.abrir:hover{
+    transform:translateY(-3px);
+    background:rgba(255,180,170,.09);
+    box-shadow:0 0 25px rgba(255,150,160,.2);
+}
+
+/* =========================
+   ESCENA
+========================= */
+
+#escena{
+    position:absolute;
+    inset:0;
+    min-height:100vh;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 1.5s ease;
+}
+
+#escena.visible{
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* =========================
+   RAMO SVG
+========================= */
+
+.bouquet{
+    position:absolute;
+    left:50%;
+    bottom:2vh;
+    transform:translateX(-50%);
+    width:min(620px,88vw);
+    height:82vh;
+    overflow:visible;
+}
+
+/* tallo principal */
+
+.main-stem{
+    stroke:#628f36;
+    stroke-width:7;
+    stroke-linecap:round;
+    fill:none;
+    stroke-dasharray:900;
+    stroke-dashoffset:900;
+    animation:growStem 3s ease-out forwards;
+}
+
+@keyframes growStem{
+    to{stroke-dashoffset:0}
+}
+
+/* ramas */
+
+.branch{
+    stroke:#638e39;
+    stroke-width:5;
+    stroke-linecap:round;
+    fill:none;
+    stroke-dasharray:300;
+    stroke-dashoffset:300;
+    opacity:0;
+}
+
+#branch1{animation:growBranch 1.2s 2.1s ease-out forwards}
+#branch2{animation:growBranch 1.2s 2.5s ease-out forwards}
+#branch3{animation:growBranch 1.2s 2.9s ease-out forwards}
+#branch4{animation:growBranch 1.2s 3.3s ease-out forwards}
+#branch5{animation:growBranch 1.2s 3.7s ease-out forwards}
+#branch6{animation:growBranch 1.2s 4.1s ease-out forwards}
+
+@keyframes growBranch{
+    to{
+        stroke-dashoffset:0;
+        opacity:1;
+    }
+}
+
+/* hojas */
+
+.leaf{
+    transform-box:fill-box;
+    transform-origin:center;
+    opacity:0;
+    transform:scale(0);
+}
+
+.leaf:nth-of-type(1){animation:leafIn .7s 2.5s forwards}
+.leaf:nth-of-type(2){animation:leafIn .7s 2.8s forwards}
+.leaf:nth-of-type(3){animation:leafIn .7s 3.0s forwards}
+.leaf:nth-of-type(4){animation:leafIn .7s 3.2s forwards}
+.leaf:nth-of-type(5){animation:leafIn .7s 3.4s forwards}
+.leaf:nth-of-type(6){animation:leafIn .7s 3.6s forwards}
+.leaf:nth-of-type(7){animation:leafIn .7s 3.8s forwards}
+.leaf:nth-of-type(8){animation:leafIn .7s 4s forwards}
+.leaf:nth-of-type(9){animation:leafIn .7s 4.2s forwards}
+.leaf:nth-of-type(10){animation:leafIn .7s 4.4s forwards}
+.leaf:nth-of-type(11){animation:leafIn .7s 4.6s forwards}
+.leaf:nth-of-type(12){animation:leafIn .7s 4.8s forwards}
+
+@keyframes leafIn{
+    0%{
+        opacity:0;
+        transform:scale(0) rotate(-20deg);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1) rotate(0);
+    }
+}
+
+/* =========================
+   FLORES
+========================= */
+
+.flower{
+    transform-box:fill-box;
+    transform-origin:center;
+    opacity:0;
+    transform:scale(.15);
+}
+
+.flower:nth-of-type(1){animation:bloom .9s 4.6s ease-out forwards}
+.flower:nth-of-type(2){animation:bloom .9s 5.0s ease-out forwards}
+.flower:nth-of-type(3){animation:bloom .9s 5.4s ease-out forwards}
+.flower:nth-of-type(4){animation:bloom .9s 5.8s ease-out forwards}
+.flower:nth-of-type(5){animation:bloom .9s 6.2s ease-out forwards}
+.flower:nth-of-type(6){animation:bloom .9s 6.6s ease-out forwards}
+.flower:nth-of-type(7){animation:bloom .9s 7.0s ease-out forwards}
+.flower:nth-of-type(8){animation:bloom .9s 7.4s ease-out forwards}
+
+@keyframes bloom{
+    0%{
+        opacity:0;
+        transform:scale(.1) rotate(-12deg);
+    }
+    65%{
+        opacity:1;
+        transform:scale(1.12) rotate(4deg);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1) rotate(0);
+    }
+}
+
+.petal-yellow{
+    fill:#f4bd3f;
+    stroke:#ffd86b;
+    stroke-width:1.5;
+}
+
+.petal-light{
+    fill:#ffe7a1;
+    stroke:#fff0bd;
+    stroke-width:1.4;
+}
+
+.center{
+    fill:#e99028;
+    stroke:#ffc65a;
+    stroke-width:2;
+}
+
+/* =========================
+   MOÑO
+========================= */
+
+.ribbon{
+    opacity:0;
+    animation:ribbonIn 1.2s 7.9s ease-out forwards;
+}
+
+@keyframes ribbonIn{
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.7);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.ribbon-fill{
+    fill:#eaa0a1;
+    stroke:#ffc2bc;
+    stroke-width:2;
+}
+
+/* =========================
+   PÉTALOS FLOTANTES
+========================= */
+
+.petal{
+    position:absolute;
+    width:10px;
+    height:18px;
+    background:#f5b7b0;
+    border-radius:100% 0 100% 0;
+    opacity:0;
+    animation:fall 8s linear infinite;
+}
+
+.petal:nth-child(1){left:15%;animation-delay:1s}
+.petal:nth-child(2){left:27%;animation-delay:4s}
+.petal:nth-child(3){left:72%;animation-delay:2s}
+.petal:nth-child(4){left:84%;animation-delay:5s}
+.petal:nth-child(5){left:42%;animation-delay:7s}
+.petal:nth-child(6){left:60%;animation-delay:3s}
+
+@keyframes fall{
+    0%{
+        top:-5%;
+        opacity:0;
+        transform:rotate(0deg) translateX(0);
+    }
+    15%{opacity:.8}
+    50%{
+        transform:rotate(180deg) translateX(50px);
+    }
+    85%{opacity:.45}
+    100%{
+        top:105%;
+        opacity:0;
+        transform:rotate(360deg) translateX(-40px);
+    }
+}
+
+/* =========================
+   MENSAJE
+========================= */
+
+.mensaje{
+    position:absolute;
+    top:7vh;
+    left:50%;
+    transform:translateX(-50%) translateY(20px);
+    width:min(520px,88vw);
+    text-align:center;
+    opacity:0;
+    animation:messageIn 1.5s 8.7s ease-out forwards;
+}
+
+@keyframes messageIn{
+    to{
+        opacity:1;
+        transform:translateX(-50%) translateY(0);
+    }
+}
+
+.mensaje h2{
+    font-size:clamp(1.8rem,4vw,2.6rem);
+    line-height:1.1;
+    font-weight:500;
+    color:#f9dfb5;
+}
+
+.mensaje h2 span{
+    display:block;
+    font-family:'Great Vibes',cursive;
+    font-size:clamp(2.8rem,7vw,4rem);
+    color:#f2b7a8;
+    margin-top:5px;
+}
+
+.mensaje p{
+    margin-top:16px;
+    color:#ded0d8;
+    font-size:clamp(1.05rem,2.5vw,1.35rem);
+    line-height:1.35;
+}
+
+.mensaje strong{
+    display:block;
+    margin-top:8px;
+    font-size:1.35rem;
+    color:#f2b0c1;
+}
+
+/* =========================
+   BOTÓN FINAL
+========================= */
+
+.final{
+    position:absolute;
+    bottom:5vh;
+    left:50%;
+    transform:translateX(-50%) translateY(15px);
+    opacity:0;
+    animation:finalIn 1.2s 9.8s ease-out forwards;
+}
+
+.final a{
+    text-decoration:none;
+    color:#f9d6ce;
+    font-size:1.4rem;
+    letter-spacing:1px;
+    padding:12px 25px;
+    border-bottom:1px solid rgba(255,190,170,.5);
+    transition:.3s ease;
+}
+
+.final a:hover{
+    color:#fff0e8;
+    text-shadow:0 0 15px rgba(255,180,160,.5);
+}
+
+@keyframes finalIn{
+    to{
+        opacity:1;
+        transform:translateX(-50%) translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:600px){
+
+    .bouquet{
+        width:105vw;
+        height:70vh;
+        bottom:4vh;
+    }
+
+    .mensaje{
+        top:4vh;
+    }
+
+    .mensaje h2{
+        font-size:1.55rem;
+    }
+
+    .mensaje h2 span{
+        font-size:3rem;
+    }
+
+    .mensaje p{
+        font-size:1rem;
+    }
+
+    .mensaje strong{
+        font-size:1.15rem;
+    }
+
+    .final{
+        bottom:2.5vh;
+    }
+
+    .final a{
+        font-size:1.15rem;
+    }
+
+    .para{
+        font-size:1.5rem;
+    }
+
+    .anafe{
+        font-size:5rem;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
+<div id="app">
 
-    <!-- =========================
-         PORTADA
-    ========================= -->
+    <div class="glow"></div>
 
-    <section class="portada" id="portada">
+    <!-- PÉTALOS -->
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
 
-        <div class="pequena-decoracion">
-            ✦　🌿　✦
+    <!-- PORTADA -->
+    <section id="portada">
+
+        <div class="portada-contenido">
+
+            <svg class="flor-mini" viewBox="0 0 100 100">
+
+                <ellipse cx="50" cy="27" rx="13" ry="22"
+                    fill="#ffe8a5"/>
+
+                <ellipse cx="73" cy="50" rx="22" ry="13"
+                    fill="#ffd86b"/>
+
+                <ellipse cx="50" cy="73" rx="13" ry="22"
+                    fill="#ffe8a5"/>
+
+                <ellipse cx="27" cy="50" rx="22" ry="13"
+                    fill="#ffd86b"/>
+
+                <circle cx="50" cy="50" r="13"
+                    fill="#e99729"/>
+
+            </svg>
+
+            <div class="para">Para</div>
+
+            <div class="anafe">Anafé</div>
+
+            <div class="subtitulo">
+                algo pequeño, pero especial
+            </div>
+
+            <button class="abrir" onclick="abrirFlores()">
+                Abrir →
+            </button>
+
         </div>
-
-        <h1 class="titulo">
-            Para Anafé
-        </h1>
-
-        <button
-            class="boton-abrir"
-            onclick="abrirFlores()">
-
-            Abrir
-
-        </button>
 
     </section>
 
 
+    <!-- ESCENA -->
+    <section id="escena">
 
-    <!-- =========================
-         ESCENA
-    ========================= -->
-
-    <section
-        class="escena"
-        id="escena">
-
-
-        <!-- TALLO PRINCIPAL -->
-
-        <div class="tallo-principal"></div>
+        <!-- PARTÍCULAS -->
+        <div class="spark" style="left:10%;top:22%;animation-delay:.3s"></div>
+        <div class="spark" style="left:22%;top:38%;animation-delay:1.4s"></div>
+        <div class="spark" style="left:78%;top:25%;animation-delay:.8s"></div>
+        <div class="spark" style="left:90%;top:48%;animation-delay:2s"></div>
+        <div class="spark" style="left:15%;top:70%;animation-delay:1.1s"></div>
+        <div class="spark" style="left:85%;top:75%;animation-delay:.5s"></div>
 
 
-        <!-- RAMAS -->
+        <!-- RAMO -->
+        <svg class="bouquet"
+             viewBox="0 0 600 900"
+             xmlns="http://www.w3.org/2000/svg">
 
-        <div class="rama rama1"></div>
-        <div class="rama rama2"></div>
-        <div class="rama rama3"></div>
-        <div class="rama rama4"></div>
+            <!-- TALLO PRINCIPAL -->
+            <path
+                class="main-stem"
+                d="M300 870
+                   C300 760 299 650 300 550
+                   C301 450 298 340 300 230
+                   C300 170 300 115 300 55"/>
 
 
-        <!-- FLORES -->
+            <!-- RAMAS -->
+            <path id="branch1"
+                  class="branch"
+                  d="M300 700 C250 620 200 560 145 500"/>
 
-        <div class="flor flor1"></div>
-        <div class="flor flor2"></div>
-        <div class="flor flor3"></div>
-        <div class="flor flor4"></div>
-        <div class="flor flor5"></div>
+            <path id="branch2"
+                  class="branch"
+                  d="M300 610 C350 535 410 475 475 400"/>
+
+            <path id="branch3"
+                  class="branch"
+                  d="M300 520 C245 450 210 390 185 310"/>
+
+            <path id="branch4"
+                  class="branch"
+                  d="M300 440 C360 365 415 320 465 245"/>
+
+            <path id="branch5"
+                  class="branch"
+                  d="M300 350 C260 295 225 245 215 185"/>
+
+            <path id="branch6"
+                  class="branch"
+                  d="M300 265 C350 205 385 150 400 95"/>
+
+
+            <!-- HOJAS -->
+            <g fill="#6d9637">
+
+                <ellipse class="leaf" cx="245" cy="625"
+                         rx="13" ry="35"
+                         transform="rotate(-55 245 625)"/>
+
+                <ellipse class="leaf" cx="215" cy="580"
+                         rx="13" ry="34"
+                         transform="rotate(55 215 580)"/>
+
+                <ellipse class="leaf" cx="355" cy="550"
+                         rx="13" ry="36"
+                         transform="rotate(55 355 550)"/>
+
+                <ellipse class="leaf" cx="390" cy="505"
+                         rx="13" ry="34"
+                         transform="rotate(-55 390 505)"/>
+
+                <ellipse class="leaf" cx="250" cy="465"
+                         rx="13" ry="34"
+                         transform="rotate(-55 250 465)"/>
+
+                <ellipse class="leaf" cx="220" cy="420"
+                         rx="13" ry="34"
+                         transform="rotate(55 220 420)"/>
+
+                <ellipse class="leaf" cx="355" cy="395"
+                         rx="13" ry="34"
+                         transform="rotate(55 355 395)"/>
+
+                <ellipse class="leaf" cx="390" cy="350"
+                         rx="13" ry="34"
+                         transform="rotate(-55 390 350)"/>
+
+                <ellipse class="leaf" cx="260" cy="315"
+                         rx="13" ry="34"
+                         transform="rotate(-55 260 315)"/>
+
+                <ellipse class="leaf" cx="245" cy="265"
+                         rx="13" ry="34"
+                         transform="rotate(55 245 265)"/>
+
+                <ellipse class="leaf" cx="350" cy="235"
+                         rx="13" ry="34"
+                         transform="rotate(55 350 235)"/>
+
+                <ellipse class="leaf" cx="370" cy="185"
+                         rx="13" ry="34"
+                         transform="rotate(-55 370 185)"/>
+
+            </g>
+
+
+            <!-- FLORES -->
+
+            <!-- Flor 1 -->
+            <g class="flower" transform="translate(145 495)">
+
+                <ellipse class="petal-yellow" cx="0" cy="-30"
+                         rx="17" ry="29"/>
+
+                <ellipse class="petal-light" cx="29" cy="-10"
+                         rx="17" ry="29"
+                         transform="rotate(65 29 -10)"/>
+
+                <ellipse class="petal-yellow" cx="18" cy="22"
+                         rx="17" ry="29"
+                         transform="rotate(130 18 22)"/>
+
+                <ellipse class="petal-light" cx="-18" cy="22"
+                         rx="17" ry="29"
+                         transform="rotate(-130 -18 22)"/>
+
+                <ellipse class="petal-yellow" cx="-29" cy="-10"
+                         rx="17" ry="29"
+                         transform="rotate(-65 -29 -10)"/>
+
+                <circle class="center" cx="0" cy="0" r="13"/>
+            </g>
+
+
+            <!-- Flor 2 -->
+            <g class="flower" transform="translate(475 395)">
+
+                <ellipse class="petal-light" cx="0" cy="-29"
+                         rx="16" ry="28"/>
+
+                <ellipse class="petal-yellow" cx="28" cy="-9"
+                         rx="16" ry="28"
+                         transform="rotate(65 28 -9)"/>
+
+                <ellipse class="petal-light" cx="17" cy="21"
+                         rx="16" ry="28"
+                         transform="rotate(130 17 21)"/>
+
+                <ellipse class="petal-yellow" cx="-17" cy="21"
+                         rx="16" ry="28"
+                         transform="rotate(-130 -17 21)"/>
+
+                <ellipse class="petal-light" cx="-28" cy="-9"
+                         rx="16" ry="28"
+                         transform="rotate(-65 -28 -9)"/>
+
+                <circle class="center" cx="0" cy="0" r="12"/>
+            </g>
+
+
+            <!-- Flor 3 -->
+            <g class="flower" transform="translate(185 305)">
+
+                <ellipse class="petal-yellow" cx="0" cy="-28"
+                         rx="15" ry="27"/>
+
+                <ellipse class="petal-light" cx="27" cy="-8"
+                         rx="15" ry="27"
+                         transform="rotate(65 27 -8)"/>
+
+                <ellipse class="petal-yellow" cx="16" cy="20"
+                         rx="15" ry="27"
+                         transform="rotate(130 16 20)"/>
+
+                <ellipse class="petal-light" cx="-16" cy="20"
+                         rx="15" ry="27"
+                         transform="rotate(-130 -16 20)"/>
+
+                <ellipse class="petal-yellow" cx="-27" cy="-8"
+                         rx="15" ry="27"
+                         transform="rotate(-65 -27 -8)"/>
+
+                <circle class="center" cx="0" cy="0" r="12"/>
+            </g>
+
+
+            <!-- Flor 4 -->
+            <g class="flower" transform="translate(465 245)">
+
+                <ellipse class="petal-yellow" cx="0" cy="-30"
+                         rx="17" ry="29"/>
+
+                <ellipse class="petal-light" cx="29" cy="-10"
+                         rx="17" ry="29"
+                         transform="rotate(65 29 -10)"/>
+
+                <ellipse class="petal-yellow" cx="18" cy="22"
+                         rx="17" ry="29"
+                         transform="rotate(130 18 22)"/>
+
+                <ellipse class="petal-light" cx="-18" cy="22"
+                         rx="17" ry="29"
+                         transform="rotate(-130 -18 22)"/>
+
+                <ellipse class="petal-yellow" cx="-29" cy="-10"
+                         rx="17" ry="29"
+                         transform="rotate(-65 -29 -10)"/>
+
+                <circle class="center" cx="0" cy="0" r="13"/>
+            </g>
+
+
+            <!-- Flor 5 -->
+            <g class="flower" transform="translate(215 185)">
+
+                <ellipse class="petal-light" cx="0" cy="-27"
+                         rx="15" ry="26"/>
+
+                <ellipse class="petal-yellow" cx="26" cy="-9"
+                         rx="15" ry="26"
+                         transform="rotate(65 26 -9)"/>
+
+                <ellipse class="petal-light" cx="16" cy="19"
+                         rx="15" ry="26"
+                         transform="rotate(130 16 19)"/>
+
+                <ellipse class="petal-yellow" cx="-16" cy="19"
+                         rx="15" ry="26"
+                         transform="rotate(-130 -16 19)"/>
+
+                <ellipse class="petal-light" cx="-26" cy="-9"
+                         rx="15" ry="26"
+                         transform="rotate(-65 -26 -9)"/>
+
+                <circle class="center" cx="0" cy="0" r="11"/>
+            </g>
+
+
+            <!-- Flor 6 -->
+            <g class="flower" transform="translate(400 95)">
+
+                <ellipse class="petal-yellow" cx="0" cy="-27"
+                         rx="15" ry="26"/>
+
+                <ellipse class="petal-light" cx="26" cy="-9"
+                         rx="15" ry="26"
+                         transform="rotate(65 26 -9)"/>
+
+                <ellipse class="petal-yellow" cx="16" cy="19"
+                         rx="15" ry="26"
+                         transform="rotate(130 16 19)"/>
+
+                <ellipse class="petal-light" cx="-16" cy="19"
+                         rx="15" ry="26"
+                         transform="rotate(-130 -16 19)"/>
+
+                <ellipse class="petal-yellow" cx="-26" cy="-9"
+                         rx="15" ry="26"
+                         transform="rotate(-65 -26 -9)"/>
+
+                <circle class="center" cx="0" cy="0" r="11"/>
+            </g>
+
+
+            <!-- Flor central grande -->
+            <g class="flower" transform="translate(300 120)">
+
+                <ellipse class="petal-light" cx="0" cy="-38"
+                         rx="20" ry="36"/>
+
+                <ellipse class="petal-yellow" cx="35" cy="-12"
+                         rx="20" ry="36"
+                         transform="rotate(65 35 -12)"/>
+
+                <ellipse class="petal-light" cx="22" cy="28"
+                         rx="20" ry="36"
+                         transform="rotate(130 22 28)"/>
+
+                <ellipse class="petal-yellow" cx="-22" cy="28"
+                         rx="20" ry="36"
+                         transform="rotate(-130 -22 28)"/>
+
+                <ellipse class="petal-light" cx="-35" cy="-12"
+                         rx="20" ry="36"
+                         transform="rotate(-65 -35 -12)"/>
+
+                <circle class="center" cx="0" cy="0" r="15"/>
+            </g>
+
+
+            <!-- FLORECITAS PEQUEÑAS -->
+            <g class="flower" transform="translate(355 205) scale(.55)">
+                <circle class="center" cx="0" cy="0" r="10"/>
+                <ellipse class="petal-light" cx="0" cy="-25" rx="12" ry="22"/>
+                <ellipse class="petal-light" cx="25" cy="0" rx="12" ry="22"
+                         transform="rotate(90 25 0)"/>
+                <ellipse class="petal-light" cx="0" cy="25" rx="12" ry="22"/>
+                <ellipse class="petal-light" cx="-25" cy="0" rx="12" ry="22"
+                         transform="rotate(90 -25 0)"/>
+            </g>
+
+
+            <!-- MOÑO -->
+            <g class="ribbon">
+
+                <path class="ribbon-fill"
+                      d="M300 750
+                         C245 715 205 740 215 780
+                         C225 815 270 805 300 775
+                         Z"/>
+
+                <path class="ribbon-fill"
+                      d="M300 750
+                         C355 715 395 740 385 780
+                         C375 815 330 805 300 775
+                         Z"/>
+
+                <path class="ribbon-fill"
+                      d="M288 770
+                         L260 855
+                         L300 825
+                         L340 855
+                         L312 770
+                         Z"/>
+
+                <ellipse
+                    cx="300"
+                    cy="765"
+                    rx="25"
+                    ry="20"
+                    fill="#d98991"
+                    stroke="#ffc2bc"
+                    stroke-width="2"/>
+
+            </g>
+
+        </svg>
 
 
         <!-- MENSAJE -->
-
         <div class="mensaje">
 
             <h2>
                 Te entrego de manera muy especial
-                “Conocida”. 🌼
+                <span>“Conocida”.</span>
             </h2>
 
             <p>
@@ -597,13 +919,13 @@
         </div>
 
 
-        <!-- SPOTIFY -->
-
-        <div class="spotify">
+        <!-- FINAL -->
+        <div class="final">
 
             <a
-                href="https://open.spotify.com/search/Do%20Better%20Cuco"
-                target="_blank">
+              href="https://open.spotify.com/track/3hMvsYZjU1pFH0xoywKXA9"
+              target="_blank"
+              rel="noopener noreferrer">
 
                 ✨ Dame click ✨
 
@@ -611,38 +933,49 @@
 
         </div>
 
-
     </section>
 
+</div>
 
 
-    <!-- =========================
-         JAVASCRIPT
-    ========================= -->
+<script>
 
-    <script>
+function crearEstrellas(){
 
-        function abrirFlores() {
+    const app = document.getElementById("app");
 
-            const portada =
-                document.getElementById("portada");
+    for(let i = 0; i < 15; i++){
 
-            const escena =
-                document.getElementById("escena");
+        const estrella = document.createElement("div");
 
+        estrella.className = "spark";
 
-            portada.classList.add("oculta");
+        estrella.style.left = Math.random()*100 + "%";
+        estrella.style.top = Math.random()*100 + "%";
+        estrella.style.animationDelay = (Math.random()*3) + "s";
 
-            setTimeout(() => {
+        app.appendChild(estrella);
+    }
+}
 
-                escena.classList.add("visible");
+function abrirFlores(){
 
-            }, 700);
+    const portada = document.getElementById("portada");
+    const escena = document.getElementById("escena");
 
-        }
+    portada.classList.add("oculta");
 
-    </script>
+    setTimeout(() => {
 
+        escena.classList.add("visible");
+
+    },700);
+
+}
+
+crearEstrellas();
+
+</script>
 
 </body>
 </html>
