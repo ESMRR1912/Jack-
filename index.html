@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Para Anafé 🌼</title>
 
     <style>
@@ -13,94 +14,452 @@
         }
 
         body {
+            width: 100%;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
-            background: linear-gradient(135deg, #180d1f, #24112d, #111b18);
-            font-family: Georgia, 'Times New Roman', serif;
+            background:
+                radial-gradient(circle at center, #301a35 0%, #170c1c 70%);
+            color: white;
+            font-family: Georgia, "Times New Roman", serif;
         }
+
+        /* =========================
+           PORTADA
+        ========================= */
 
         .portada {
-            text-align: center;
-            animation: aparecer 2s ease;
+            position: fixed;
+            inset: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            z-index: 20;
+
+            transition:
+                opacity 1.5s ease,
+                transform 1.5s ease;
         }
 
-        .decoracion {
-            font-size: 22px;
+        .portada.oculta {
+            opacity: 0;
+            transform: scale(1.08);
+            pointer-events: none;
+        }
+
+        .pequena-decoracion {
+            font-size: 20px;
             margin-bottom: 25px;
-            letter-spacing: 15px;
             opacity: 0.8;
         }
 
-        h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 400;
+        .titulo {
+            font-size: clamp(3.5rem, 11vw, 7rem);
+            font-weight: normal;
             font-style: italic;
-            background: linear-gradient(
-                90deg,
-                #ff9fcf,
-                #c99cff,
-                #9de3ad,
-                #ff9fcf
-            );
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff9fcf,
+                    #c99cff,
+                    #a9e8b5,
+                    #ff9fcf
+                );
+
             background-size: 300% 300%;
+
             -webkit-background-clip: text;
             background-clip: text;
+
             color: transparent;
+
             animation: colores 6s ease infinite;
+
             margin-bottom: 45px;
         }
 
-        .abrir {
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.08);
-            color: white;
-            padding: 14px 38px;
+        .boton-abrir {
+            padding: 14px 42px;
+
+            border: 1px solid rgba(255,255,255,0.35);
             border-radius: 50px;
+
+            background: rgba(255,255,255,0.08);
+            color: white;
+
             font-size: 17px;
             cursor: pointer;
+
             backdrop-filter: blur(10px);
+
             transition: 0.4s ease;
         }
 
-        .abrir:hover {
+        .boton-abrir:hover {
             transform: scale(1.08);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 30px rgba(255, 180, 220, 0.25);
+            background: rgba(255,255,255,0.16);
+            box-shadow: 0 0 35px rgba(255,180,220,0.25);
         }
+
+
+        /* =========================
+           ESCENA DE LAS FLORES
+        ========================= */
+
+        .escena {
+            position: fixed;
+            inset: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+
+            opacity: 0;
+            pointer-events: none;
+
+            transition: opacity 2s ease;
+        }
+
+        .escena.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+
+        /* =========================
+           TALLO PRINCIPAL
+        ========================= */
+
+        .tallo-principal {
+            position: absolute;
+
+            width: 7px;
+            height: 0;
+
+            bottom: 0;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            background:
+                linear-gradient(
+                    to top,
+                    #254d2c,
+                    #4f8b4f
+                );
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 0 8px rgba(110,180,100,0.25);
+
+            animation:
+                crecer-tallo 3s ease forwards;
+        }
+
+
+        /* =========================
+           RAMAS
+        ========================= */
+
+        .rama {
+            position: absolute;
+
+            width: 5px;
+            height: 0;
+
+            background: #477b47;
+
+            border-radius: 10px;
+
+            transform-origin: bottom;
+        }
+
+        .rama1 {
+            bottom: 28%;
+            left: 50%;
+
+            transform:
+                rotate(-35deg);
+
+            animation:
+                crecer-rama 1.5s ease 2.3s forwards;
+        }
+
+        .rama2 {
+            bottom: 38%;
+            left: 50%;
+
+            transform:
+                rotate(35deg);
+
+            animation:
+                crecer-rama 1.5s ease 2.7s forwards;
+        }
+
+        .rama3 {
+            bottom: 49%;
+            left: 50%;
+
+            transform:
+                rotate(-28deg);
+
+            animation:
+                crecer-rama 1.5s ease 3.1s forwards;
+        }
+
+        .rama4 {
+            bottom: 58%;
+            left: 50%;
+
+            transform:
+                rotate(27deg);
+
+            animation:
+                crecer-rama 1.5s ease 3.4s forwards;
+        }
+
+
+        /* =========================
+           FLORES
+        ========================= */
 
         .flor {
             position: absolute;
-            opacity: 0.7;
-            animation: flotar 5s ease-in-out infinite;
+
+            font-size: 0;
+
+            transform: scale(0);
+
+            animation:
+                aparecer-flor 1.4s ease forwards;
+        }
+
+        .flor::before {
+            content: "🌼";
+
+            font-size: 65px;
+
+            filter:
+                drop-shadow(
+                    0 0 12px
+                    rgba(255,220,70,0.25)
+                );
         }
 
         .flor1 {
-            top: 15%;
-            left: 15%;
+            left: calc(50% - 115px);
+            bottom: 53%;
+
+            animation-delay: 3.7s;
         }
 
         .flor2 {
-            bottom: 18%;
-            right: 15%;
-            animation-delay: 1.5s;
+            left: calc(50% + 55px);
+            bottom: 63%;
+
+            animation-delay: 4s;
         }
 
-        @keyframes aparecer {
+        .flor3 {
+            left: calc(50% - 45px);
+            bottom: 72%;
+
+            animation-delay: 4.3s;
+        }
+
+        .flor4 {
+            left: calc(50% + 105px);
+            bottom: 45%;
+
+            animation-delay: 4.6s;
+        }
+
+        .flor5 {
+            left: calc(50% - 165px);
+            bottom: 43%;
+
+            animation-delay: 4.9s;
+        }
+
+
+        /* =========================
+           MENSAJE
+        ========================= */
+
+        .mensaje {
+            position: absolute;
+
+            top: 8%;
+            left: 50%;
+
+            transform:
+                translateX(-50%)
+                translateY(20px);
+
+            width: min(90%, 600px);
+
+            text-align: center;
+
+            opacity: 0;
+
+            animation:
+                aparecer-mensaje
+                2s ease
+                6s forwards;
+        }
+
+        .mensaje h2 {
+            font-size: clamp(1.4rem, 4vw, 2rem);
+
+            font-weight: normal;
+
+            margin-bottom: 20px;
+
+            color: #ffe6a6;
+        }
+
+        .mensaje p {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+
+            line-height: 1.8;
+
+            color: rgba(255,255,255,0.88);
+        }
+
+        .mensaje strong {
+            display: block;
+
+            margin-top: 15px;
+
+            color: #ffb6d9;
+
+            font-size: 1.25em;
+        }
+
+
+        /* =========================
+           DAME CLICK
+        ========================= */
+
+        .spotify {
+            position: absolute;
+
+            bottom: 5%;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%)
+                translateY(20px);
+
+            opacity: 0;
+
+            animation:
+                aparecer-mensaje
+                2s ease
+                8s forwards;
+        }
+
+        .spotify a {
+            color: #d8b4ff;
+
+            text-decoration: none;
+
+            font-size: 18px;
+
+            letter-spacing: 1px;
+
+            padding: 10px 22px;
+
+            border-radius: 30px;
+
+            transition: 0.4s ease;
+        }
+
+        .spotify a:hover {
+            color: #ffb8da;
+
+            text-shadow:
+                0 0 15px
+                rgba(255,180,220,0.7);
+        }
+
+
+        /* =========================
+           ANIMACIONES
+        ========================= */
+
+        @keyframes crecer-tallo {
+
+            from {
+                height: 0;
+            }
+
+            to {
+                height: 72vh;
+            }
+        }
+
+        @keyframes crecer-rama {
+
+            from {
+                height: 0;
+            }
+
+            to {
+                height: 150px;
+            }
+        }
+
+        @keyframes aparecer-flor {
+
+            0% {
+                transform: scale(0)
+                           rotate(-20deg);
+
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.15)
+                           rotate(5deg);
+
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1)
+                           rotate(0deg);
+
+                opacity: 1;
+            }
+        }
+
+        @keyframes aparecer-mensaje {
+
             from {
                 opacity: 0;
-                transform: translateY(20px);
+
+                transform:
+                    translateX(-50%)
+                    translateY(20px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+
+                transform:
+                    translateX(-50%)
+                    translateY(0);
             }
         }
 
         @keyframes colores {
+
             0% {
                 background-position: 0% 50%;
             }
@@ -114,52 +473,176 @@
             }
         }
 
-        @keyframes flotar {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
 
-            50% {
-                transform: translateY(-12px) rotate(5deg);
-            }
-        }
+        /* =========================
+           CELULAR
+        ========================= */
 
         @media (max-width: 600px) {
-            h1 {
-                font-size: 3.4rem;
+
+            .tallo-principal {
+                width: 5px;
             }
 
-            .decoracion {
-                font-size: 17px;
+            .flor::before {
+                font-size: 48px;
+            }
+
+            .flor1 {
+                left: calc(50% - 85px);
+            }
+
+            .flor2 {
+                left: calc(50% + 35px);
+            }
+
+            .flor3 {
+                left: calc(50% - 25px);
+            }
+
+            .flor4 {
+                left: calc(50% + 65px);
+            }
+
+            .flor5 {
+                left: calc(50% - 120px);
+            }
+
+            .mensaje {
+                top: 6%;
             }
         }
     </style>
 </head>
 
+
 <body>
 
-    <div class="flor flor1">🌼</div>
-    <div class="flor flor2">🌼</div>
 
-    <main class="portada">
+    <!-- =========================
+         PORTADA
+    ========================= -->
 
-        <div class="decoracion">
+    <section class="portada" id="portada">
+
+        <div class="pequena-decoracion">
             ✦　🌿　✦
         </div>
 
-        <h1>Para Anafé</h1>
+        <h1 class="titulo">
+            Para Anafé
+        </h1>
 
-        <button class="abrir" onclick="abrirPagina()">
+        <button
+            class="boton-abrir"
+            onclick="abrirFlores()">
+
             Abrir
+
         </button>
 
-    </main>
+    </section>
+
+
+
+    <!-- =========================
+         ESCENA
+    ========================= -->
+
+    <section
+        class="escena"
+        id="escena">
+
+
+        <!-- TALLO PRINCIPAL -->
+
+        <div class="tallo-principal"></div>
+
+
+        <!-- RAMAS -->
+
+        <div class="rama rama1"></div>
+        <div class="rama rama2"></div>
+        <div class="rama rama3"></div>
+        <div class="rama rama4"></div>
+
+
+        <!-- FLORES -->
+
+        <div class="flor flor1"></div>
+        <div class="flor flor2"></div>
+        <div class="flor flor3"></div>
+        <div class="flor flor4"></div>
+        <div class="flor flor5"></div>
+
+
+        <!-- MENSAJE -->
+
+        <div class="mensaje">
+
+            <h2>
+                Te entrego de manera muy especial
+                “Conocida”. 🌼
+            </h2>
+
+            <p>
+                Siempre te desearé lo mejor
+                y que cumplas todas tus metas.
+            </p>
+
+            <strong>
+                Tú puedes con todo.
+            </strong>
+
+        </div>
+
+
+        <!-- SPOTIFY -->
+
+        <div class="spotify">
+
+            <a
+                href="https://open.spotify.com/search/Do%20Better%20Cuco"
+                target="_blank">
+
+                ✨ Dame click ✨
+
+            </a>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
 
     <script>
-        function abrirPagina() {
-            alert("🌼 Aquí comenzará nuestra historia...");
+
+        function abrirFlores() {
+
+            const portada =
+                document.getElementById("portada");
+
+            const escena =
+                document.getElementById("escena");
+
+
+            portada.classList.add("oculta");
+
+            setTimeout(() => {
+
+                escena.classList.add("visible");
+
+            }, 700);
+
         }
+
     </script>
+
 
 </body>
 </html>
