@@ -5,977 +5,304 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Anafé 🌼</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap');
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html,body{
-    width:100%;
-    min-height:100%;
-}
-
-body{
-    overflow-x:hidden;
-    background:
-        radial-gradient(circle at 50% 70%, #32152f 0%, #190d1d 45%, #0d0710 100%);
-    color:#f8e9d1;
-    font-family:'Cormorant Garamond',serif;
-}
-
-/* =========================
-   FONDO
-========================= */
-
-#app{
-    position:relative;
-    min-height:100vh;
-    overflow:hidden;
-}
-
-.glow{
-    position:absolute;
-    width:500px;
-    height:500px;
-    border-radius:50%;
-    background:radial-gradient(circle,rgba(255,190,90,.10),transparent 65%);
-    left:50%;
-    top:55%;
-    transform:translate(-50%,-50%);
-    pointer-events:none;
-}
-
-.spark{
-    position:absolute;
-    width:3px;
-    height:3px;
-    background:#ffd98c;
-    border-radius:50%;
-    box-shadow:0 0 10px #ffd98c;
-    opacity:.7;
-    animation:twinkle 3s infinite ease-in-out;
-}
-
-@keyframes twinkle{
-    0%,100%{opacity:.15;transform:scale(.6)}
-    50%{opacity:1;transform:scale(1.3)}
-}
-
-/* =========================
-   PORTADA
-========================= */
-
-#portada{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    transition:opacity 1s ease, transform 1s ease;
-    position:relative;
-    z-index:20;
-}
-
-#portada.oculta{
-    opacity:0;
-    transform:scale(1.04);
-    pointer-events:none;
-}
-
-.portada-contenido{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:22px;
-}
-
-.flor-mini{
-    width:60px;
-    height:60px;
-    filter:drop-shadow(0 0 12px rgba(255,190,70,.45));
-}
-
-.para{
-    font-size:2rem;
-    letter-spacing:3px;
-}
-
-.anafe{
-    font-family:'Great Vibes',cursive;
-    font-size:clamp(4rem,10vw,7rem);
-    line-height:.8;
-    color:#ffd5c5;
-    text-shadow:
-        0 0 15px rgba(255,170,150,.25),
-        0 0 35px rgba(190,110,170,.18);
-}
-
-.subtitulo{
-    color:#cbb4c7;
-    font-size:1rem;
-    letter-spacing:3px;
-    margin-top:5px;
-}
-
-.abrir{
-    margin-top:20px;
-    padding:13px 38px;
-    border:1px solid rgba(255,190,180,.75);
-    border-radius:50px;
-    background:rgba(255,255,255,.035);
-    color:#ffe7dc;
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.25rem;
-    cursor:pointer;
-    transition:.35s ease;
-    box-shadow:
-        0 0 15px rgba(255,150,160,.08),
-        inset 0 0 15px rgba(255,255,255,.02);
-}
-
-.abrir:hover{
-    transform:translateY(-3px);
-    background:rgba(255,180,170,.09);
-    box-shadow:0 0 25px rgba(255,150,160,.2);
-}
-
-/* =========================
-   ESCENA
-========================= */
-
-#escena{
-    position:absolute;
-    inset:0;
-    min-height:100vh;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity 1.5s ease;
-}
-
-#escena.visible{
-    opacity:1;
-    pointer-events:auto;
-}
-
-/* =========================
-   RAMO SVG
-========================= */
-
-.bouquet{
-    position:absolute;
-    left:50%;
-    bottom:2vh;
-    transform:translateX(-50%);
-    width:min(620px,88vw);
-    height:82vh;
-    overflow:visible;
-}
-
-/* tallo principal */
-
-.main-stem{
-    stroke:#628f36;
-    stroke-width:7;
-    stroke-linecap:round;
-    fill:none;
-    stroke-dasharray:900;
-    stroke-dashoffset:900;
-    animation:growStem 3s ease-out forwards;
-}
-
-@keyframes growStem{
-    to{stroke-dashoffset:0}
-}
-
-/* ramas */
-
-.branch{
-    stroke:#638e39;
-    stroke-width:5;
-    stroke-linecap:round;
-    fill:none;
-    stroke-dasharray:300;
-    stroke-dashoffset:300;
-    opacity:0;
-}
-
-#branch1{animation:growBranch 1.2s 2.1s ease-out forwards}
-#branch2{animation:growBranch 1.2s 2.5s ease-out forwards}
-#branch3{animation:growBranch 1.2s 2.9s ease-out forwards}
-#branch4{animation:growBranch 1.2s 3.3s ease-out forwards}
-#branch5{animation:growBranch 1.2s 3.7s ease-out forwards}
-#branch6{animation:growBranch 1.2s 4.1s ease-out forwards}
-
-@keyframes growBranch{
-    to{
-        stroke-dashoffset:0;
-        opacity:1;
-    }
-}
-
-/* hojas */
-
-.leaf{
-    transform-box:fill-box;
-    transform-origin:center;
-    opacity:0;
-    transform:scale(0);
-}
-
-.leaf:nth-of-type(1){animation:leafIn .7s 2.5s forwards}
-.leaf:nth-of-type(2){animation:leafIn .7s 2.8s forwards}
-.leaf:nth-of-type(3){animation:leafIn .7s 3.0s forwards}
-.leaf:nth-of-type(4){animation:leafIn .7s 3.2s forwards}
-.leaf:nth-of-type(5){animation:leafIn .7s 3.4s forwards}
-.leaf:nth-of-type(6){animation:leafIn .7s 3.6s forwards}
-.leaf:nth-of-type(7){animation:leafIn .7s 3.8s forwards}
-.leaf:nth-of-type(8){animation:leafIn .7s 4s forwards}
-.leaf:nth-of-type(9){animation:leafIn .7s 4.2s forwards}
-.leaf:nth-of-type(10){animation:leafIn .7s 4.4s forwards}
-.leaf:nth-of-type(11){animation:leafIn .7s 4.6s forwards}
-.leaf:nth-of-type(12){animation:leafIn .7s 4.8s forwards}
-
-@keyframes leafIn{
-    0%{
-        opacity:0;
-        transform:scale(0) rotate(-20deg);
-    }
-    100%{
-        opacity:1;
-        transform:scale(1) rotate(0);
-    }
-}
-
-/* =========================
-   FLORES
-========================= */
-
-.flower{
-    transform-box:fill-box;
-    transform-origin:center;
-    opacity:0;
-    transform:scale(.15);
-}
-
-.flower:nth-of-type(1){animation:bloom .9s 4.6s ease-out forwards}
-.flower:nth-of-type(2){animation:bloom .9s 5.0s ease-out forwards}
-.flower:nth-of-type(3){animation:bloom .9s 5.4s ease-out forwards}
-.flower:nth-of-type(4){animation:bloom .9s 5.8s ease-out forwards}
-.flower:nth-of-type(5){animation:bloom .9s 6.2s ease-out forwards}
-.flower:nth-of-type(6){animation:bloom .9s 6.6s ease-out forwards}
-.flower:nth-of-type(7){animation:bloom .9s 7.0s ease-out forwards}
-.flower:nth-of-type(8){animation:bloom .9s 7.4s ease-out forwards}
-
-@keyframes bloom{
-    0%{
-        opacity:0;
-        transform:scale(.1) rotate(-12deg);
-    }
-    65%{
-        opacity:1;
-        transform:scale(1.12) rotate(4deg);
-    }
-    100%{
-        opacity:1;
-        transform:scale(1) rotate(0);
-    }
-}
-
-.petal-yellow{
-    fill:#f4bd3f;
-    stroke:#ffd86b;
-    stroke-width:1.5;
-}
-
-.petal-light{
-    fill:#ffe7a1;
-    stroke:#fff0bd;
-    stroke-width:1.4;
-}
-
-.center{
-    fill:#e99028;
-    stroke:#ffc65a;
-    stroke-width:2;
-}
-
-/* =========================
-   MOÑO
-========================= */
-
-.ribbon{
-    opacity:0;
-    animation:ribbonIn 1.2s 7.9s ease-out forwards;
-}
-
-@keyframes ribbonIn{
-    from{
-        opacity:0;
-        transform:translateY(15px) scale(.7);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-}
-
-.ribbon-fill{
-    fill:#eaa0a1;
-    stroke:#ffc2bc;
-    stroke-width:2;
-}
-
-/* =========================
-   PÉTALOS FLOTANTES
-========================= */
-
-.petal{
-    position:absolute;
-    width:10px;
-    height:18px;
-    background:#f5b7b0;
-    border-radius:100% 0 100% 0;
-    opacity:0;
-    animation:fall 8s linear infinite;
-}
-
-.petal:nth-child(1){left:15%;animation-delay:1s}
-.petal:nth-child(2){left:27%;animation-delay:4s}
-.petal:nth-child(3){left:72%;animation-delay:2s}
-.petal:nth-child(4){left:84%;animation-delay:5s}
-.petal:nth-child(5){left:42%;animation-delay:7s}
-.petal:nth-child(6){left:60%;animation-delay:3s}
-
-@keyframes fall{
-    0%{
-        top:-5%;
-        opacity:0;
-        transform:rotate(0deg) translateX(0);
-    }
-    15%{opacity:.8}
-    50%{
-        transform:rotate(180deg) translateX(50px);
-    }
-    85%{opacity:.45}
-    100%{
-        top:105%;
-        opacity:0;
-        transform:rotate(360deg) translateX(-40px);
-    }
-}
-
-/* =========================
-   MENSAJE
-========================= */
-
-.mensaje{
-    position:absolute;
-    top:7vh;
-    left:50%;
-    transform:translateX(-50%) translateY(20px);
-    width:min(520px,88vw);
-    text-align:center;
-    opacity:0;
-    animation:messageIn 1.5s 8.7s ease-out forwards;
-}
-
-@keyframes messageIn{
-    to{
-        opacity:1;
-        transform:translateX(-50%) translateY(0);
-    }
-}
-
-.mensaje h2{
-    font-size:clamp(1.8rem,4vw,2.6rem);
-    line-height:1.1;
-    font-weight:500;
-    color:#f9dfb5;
-}
-
-.mensaje h2 span{
-    display:block;
-    font-family:'Great Vibes',cursive;
-    font-size:clamp(2.8rem,7vw,4rem);
-    color:#f2b7a8;
-    margin-top:5px;
-}
-
-.mensaje p{
-    margin-top:16px;
-    color:#ded0d8;
-    font-size:clamp(1.05rem,2.5vw,1.35rem);
-    line-height:1.35;
-}
-
-.mensaje strong{
-    display:block;
-    margin-top:8px;
-    font-size:1.35rem;
-    color:#f2b0c1;
-}
-
-/* =========================
-   BOTÓN FINAL
-========================= */
-
-.final{
-    position:absolute;
-    bottom:5vh;
-    left:50%;
-    transform:translateX(-50%) translateY(15px);
-    opacity:0;
-    animation:finalIn 1.2s 9.8s ease-out forwards;
-}
-
-.final a{
-    text-decoration:none;
-    color:#f9d6ce;
-    font-size:1.4rem;
-    letter-spacing:1px;
-    padding:12px 25px;
-    border-bottom:1px solid rgba(255,190,170,.5);
-    transition:.3s ease;
-}
-
-.final a:hover{
-    color:#fff0e8;
-    text-shadow:0 0 15px rgba(255,180,160,.5);
-}
-
-@keyframes finalIn{
-    to{
-        opacity:1;
-        transform:translateX(-50%) translateY(0);
-    }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:600px){
-
-    .bouquet{
-        width:105vw;
-        height:70vh;
-        bottom:4vh;
-    }
-
-    .mensaje{
-        top:4vh;
-    }
-
-    .mensaje h2{
-        font-size:1.55rem;
-    }
-
-    .mensaje h2 span{
-        font-size:3rem;
-    }
-
-    .mensaje p{
-        font-size:1rem;
-    }
-
-    .mensaje strong{
-        font-size:1.15rem;
-    }
-
-    .final{
-        bottom:2.5vh;
-    }
-
-    .final a{
-        font-size:1.15rem;
-    }
-
-    .para{
-        font-size:1.5rem;
-    }
-
-    .anafe{
-        font-size:5rem;
-    }
-}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div id="app">
 
     <div class="glow"></div>
 
-    <!-- PÉTALOS -->
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-
-    <!-- PORTADA -->
+    <!-- =====================================
+         PORTADA
+    ====================================== -->
     <section id="portada">
-
         <div class="portada-contenido">
 
-            <svg class="flor-mini" viewBox="0 0 100 100">
-
-                <ellipse cx="50" cy="27" rx="13" ry="22"
-                    fill="#ffe8a5"/>
-
-                <ellipse cx="73" cy="50" rx="22" ry="13"
-                    fill="#ffd86b"/>
-
-                <ellipse cx="50" cy="73" rx="13" ry="22"
-                    fill="#ffe8a5"/>
-
-                <ellipse cx="27" cy="50" rx="22" ry="13"
-                    fill="#ffd86b"/>
-
-                <circle cx="50" cy="50" r="13"
-                    fill="#e99729"/>
-
+            <svg class="flor-portada" viewBox="0 0 100 100">
+                <ellipse cx="50" cy="27" rx="13" ry="22" fill="#ffe8a5"/>
+                <ellipse cx="73" cy="50" rx="22" ry="13" fill="#ffd86b"/>
+                <ellipse cx="50" cy="73" rx="13" ry="22" fill="#ffe8a5"/>
+                <ellipse cx="27" cy="50" rx="22" ry="13" fill="#ffd86b"/>
+                <circle cx="50" cy="50" r="13" fill="#e99729"/>
             </svg>
 
             <div class="para">Para</div>
-
             <div class="anafe">Anafé</div>
+            <div class="subtitulo">algo pequeño, pero especial</div>
 
-            <div class="subtitulo">
-                algo pequeño, pero especial
-            </div>
-
-            <button class="abrir" onclick="abrirFlores()">
-                Abrir →
-            </button>
+            <button class="abrir" id="btnAbrir" type="button">Abrir →</button>
 
         </div>
-
     </section>
 
-
-    <!-- ESCENA -->
+    <!-- =====================================
+         ESCENA
+    ====================================== -->
     <section id="escena">
 
-        <!-- PARTÍCULAS -->
-        <div class="spark" style="left:10%;top:22%;animation-delay:.3s"></div>
-        <div class="spark" style="left:22%;top:38%;animation-delay:1.4s"></div>
-        <div class="spark" style="left:78%;top:25%;animation-delay:.8s"></div>
-        <div class="spark" style="left:90%;top:48%;animation-delay:2s"></div>
-        <div class="spark" style="left:15%;top:70%;animation-delay:1.1s"></div>
-        <div class="spark" style="left:85%;top:75%;animation-delay:.5s"></div>
+        <!-- Frase que va narrando el crecimiento (como en tu boceto) -->
+        <div class="stage-caption" id="stageCaption"></div>
 
+        <!-- PÉTALOS -->
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
+        <div class="petalo"></div>
 
-        <!-- RAMO -->
-        <svg class="bouquet"
-             viewBox="0 0 600 900"
-             xmlns="http://www.w3.org/2000/svg">
+        <!-- Ramo a un lado y mensaje/reproductor al otro, sin pisarse -->
+        <div class="escena-layout">
 
-            <!-- TALLO PRINCIPAL -->
-            <path
-                class="main-stem"
-                d="M300 870
-                   C300 760 299 650 300 550
-                   C301 450 298 340 300 230
-                   C300 170 300 115 300 55"/>
+        <div class="ramo-col">
+        <!-- ================= RAMO ================= -->
+        <svg class="bouquet" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg">
 
+            <!-- TALLO -->
+            <path class="main-stem" d="
+                M300 870 C300 760 300 650 300 550
+                C300 450 300 340 300 230
+                C300 160 300 100 300 50
+            "/>
 
             <!-- RAMAS -->
-            <path id="branch1"
-                  class="branch"
-                  d="M300 700 C250 620 200 560 145 500"/>
-
-            <path id="branch2"
-                  class="branch"
-                  d="M300 610 C350 535 410 475 475 400"/>
-
-            <path id="branch3"
-                  class="branch"
-                  d="M300 520 C245 450 210 390 185 310"/>
-
-            <path id="branch4"
-                  class="branch"
-                  d="M300 440 C360 365 415 320 465 245"/>
-
-            <path id="branch5"
-                  class="branch"
-                  d="M300 350 C260 295 225 245 215 185"/>
-
-            <path id="branch6"
-                  class="branch"
-                  d="M300 265 C350 205 385 150 400 95"/>
-
+            <path class="branch branch-1" d="M300 700 C250 625 195 560 140 500"/>
+            <path class="branch branch-2" d="M300 610 C350 535 410 475 475 400"/>
+            <path class="branch branch-3" d="M300 520 C245 450 210 390 180 310"/>
+            <path class="branch branch-4" d="M300 440 C355 370 415 315 465 245"/>
+            <path class="branch branch-5" d="M300 350 C260 295 225 245 215 185"/>
+            <path class="branch branch-6" d="M300 265 C350 205 385 150 400 95"/>
 
             <!-- HOJAS -->
-            <g fill="#6d9637">
-
-                <ellipse class="leaf" cx="245" cy="625"
-                         rx="13" ry="35"
-                         transform="rotate(-55 245 625)"/>
-
-                <ellipse class="leaf" cx="215" cy="580"
-                         rx="13" ry="34"
-                         transform="rotate(55 215 580)"/>
-
-                <ellipse class="leaf" cx="355" cy="550"
-                         rx="13" ry="36"
-                         transform="rotate(55 355 550)"/>
-
-                <ellipse class="leaf" cx="390" cy="505"
-                         rx="13" ry="34"
-                         transform="rotate(-55 390 505)"/>
-
-                <ellipse class="leaf" cx="250" cy="465"
-                         rx="13" ry="34"
-                         transform="rotate(-55 250 465)"/>
-
-                <ellipse class="leaf" cx="220" cy="420"
-                         rx="13" ry="34"
-                         transform="rotate(55 220 420)"/>
-
-                <ellipse class="leaf" cx="355" cy="395"
-                         rx="13" ry="34"
-                         transform="rotate(55 355 395)"/>
-
-                <ellipse class="leaf" cx="390" cy="350"
-                         rx="13" ry="34"
-                         transform="rotate(-55 390 350)"/>
-
-                <ellipse class="leaf" cx="260" cy="315"
-                         rx="13" ry="34"
-                         transform="rotate(-55 260 315)"/>
-
-                <ellipse class="leaf" cx="245" cy="265"
-                         rx="13" ry="34"
-                         transform="rotate(55 245 265)"/>
-
-                <ellipse class="leaf" cx="350" cy="235"
-                         rx="13" ry="34"
-                         transform="rotate(55 350 235)"/>
-
-                <ellipse class="leaf" cx="370" cy="185"
-                         rx="13" ry="34"
-                         transform="rotate(-55 370 185)"/>
-
+            <g fill="#71983b">
+                <ellipse class="leaf" style="--delay:2.8s" cx="245" cy="625" rx="13" ry="35" transform="rotate(-55 245 625)"/>
+                <ellipse class="leaf" style="--delay:3s"   cx="215" cy="580" rx="13" ry="34" transform="rotate(55 215 580)"/>
+                <ellipse class="leaf" style="--delay:3.2s" cx="355" cy="550" rx="13" ry="36" transform="rotate(55 355 550)"/>
+                <ellipse class="leaf" style="--delay:3.4s" cx="390" cy="505" rx="13" ry="34" transform="rotate(-55 390 505)"/>
+                <ellipse class="leaf" style="--delay:3.6s" cx="250" cy="465" rx="13" ry="34" transform="rotate(-55 250 465)"/>
+                <ellipse class="leaf" style="--delay:3.8s" cx="220" cy="420" rx="13" ry="34" transform="rotate(55 220 420)"/>
+                <ellipse class="leaf" style="--delay:4s"   cx="355" cy="395" rx="13" ry="34" transform="rotate(55 355 395)"/>
+                <ellipse class="leaf" style="--delay:4.2s" cx="390" cy="350" rx="13" ry="34" transform="rotate(-55 390 350)"/>
+                <ellipse class="leaf" style="--delay:4.4s" cx="260" cy="315" rx="13" ry="34" transform="rotate(-55 260 315)"/>
+                <ellipse class="leaf" style="--delay:4.6s" cx="245" cy="265" rx="13" ry="34" transform="rotate(55 245 265)"/>
+                <ellipse class="leaf" style="--delay:4.8s" cx="350" cy="235" rx="13" ry="34" transform="rotate(55 350 235)"/>
+                <ellipse class="leaf" style="--delay:5s"   cx="370" cy="185" rx="13" ry="34" transform="rotate(-55 370 185)"/>
             </g>
 
+            <!-- ================= FLORES ================= -->
 
-            <!-- FLORES -->
-
-            <!-- Flor 1 -->
-            <g class="flower" transform="translate(145 495)">
-
-                <ellipse class="petal-yellow" cx="0" cy="-30"
-                         rx="17" ry="29"/>
-
-                <ellipse class="petal-light" cx="29" cy="-10"
-                         rx="17" ry="29"
-                         transform="rotate(65 29 -10)"/>
-
-                <ellipse class="petal-yellow" cx="18" cy="22"
-                         rx="17" ry="29"
-                         transform="rotate(130 18 22)"/>
-
-                <ellipse class="petal-light" cx="-18" cy="22"
-                         rx="17" ry="29"
-                         transform="rotate(-130 -18 22)"/>
-
-                <ellipse class="petal-yellow" cx="-29" cy="-10"
-                         rx="17" ry="29"
-                         transform="rotate(-65 -29 -10)"/>
-
-                <circle class="center" cx="0" cy="0" r="13"/>
+            <g transform="translate(140 500)">
+                <g class="flower-bloom" style="--delay:4.8s">
+                    <ellipse class="petal-yellow" cx="0" cy="-30" rx="17" ry="29"/>
+                    <ellipse class="petal-light" cx="29" cy="-10" rx="17" ry="29" transform="rotate(65 29 -10)"/>
+                    <ellipse class="petal-yellow" cx="18" cy="22" rx="17" ry="29" transform="rotate(130 18 22)"/>
+                    <ellipse class="petal-light" cx="-18" cy="22" rx="17" ry="29" transform="rotate(-130 -18 22)"/>
+                    <ellipse class="petal-yellow" cx="-29" cy="-10" rx="17" ry="29" transform="rotate(-65 -29 -10)"/>
+                    <circle class="flower-center" cx="0" cy="0" r="13"/>
+                </g>
             </g>
 
-
-            <!-- Flor 2 -->
-            <g class="flower" transform="translate(475 395)">
-
-                <ellipse class="petal-light" cx="0" cy="-29"
-                         rx="16" ry="28"/>
-
-                <ellipse class="petal-yellow" cx="28" cy="-9"
-                         rx="16" ry="28"
-                         transform="rotate(65 28 -9)"/>
-
-                <ellipse class="petal-light" cx="17" cy="21"
-                         rx="16" ry="28"
-                         transform="rotate(130 17 21)"/>
-
-                <ellipse class="petal-yellow" cx="-17" cy="21"
-                         rx="16" ry="28"
-                         transform="rotate(-130 -17 21)"/>
-
-                <ellipse class="petal-light" cx="-28" cy="-9"
-                         rx="16" ry="28"
-                         transform="rotate(-65 -28 -9)"/>
-
-                <circle class="center" cx="0" cy="0" r="12"/>
+            <g transform="translate(475 400)">
+                <g class="flower-bloom" style="--delay:5.2s">
+                    <ellipse class="petal-light" cx="0" cy="-29" rx="16" ry="28"/>
+                    <ellipse class="petal-yellow" cx="28" cy="-9" rx="16" ry="28" transform="rotate(65 28 -9)"/>
+                    <ellipse class="petal-light" cx="17" cy="21" rx="16" ry="28" transform="rotate(130 17 21)"/>
+                    <ellipse class="petal-yellow" cx="-17" cy="21" rx="16" ry="28" transform="rotate(-130 -17 21)"/>
+                    <ellipse class="petal-light" cx="-28" cy="-9" rx="16" ry="28" transform="rotate(-65 -28 -9)"/>
+                    <circle class="flower-center" cx="0" cy="0" r="12"/>
+                </g>
             </g>
 
-
-            <!-- Flor 3 -->
-            <g class="flower" transform="translate(185 305)">
-
-                <ellipse class="petal-yellow" cx="0" cy="-28"
-                         rx="15" ry="27"/>
-
-                <ellipse class="petal-light" cx="27" cy="-8"
-                         rx="15" ry="27"
-                         transform="rotate(65 27 -8)"/>
-
-                <ellipse class="petal-yellow" cx="16" cy="20"
-                         rx="15" ry="27"
-                         transform="rotate(130 16 20)"/>
-
-                <ellipse class="petal-light" cx="-16" cy="20"
-                         rx="15" ry="27"
-                         transform="rotate(-130 -16 20)"/>
-
-                <ellipse class="petal-yellow" cx="-27" cy="-8"
-                         rx="15" ry="27"
-                         transform="rotate(-65 -27 -8)"/>
-
-                <circle class="center" cx="0" cy="0" r="12"/>
+            <g transform="translate(180 310)">
+                <g class="flower-bloom" style="--delay:5.6s">
+                    <ellipse class="petal-yellow" cx="0" cy="-28" rx="15" ry="27"/>
+                    <ellipse class="petal-light" cx="27" cy="-8" rx="15" ry="27" transform="rotate(65 27 -8)"/>
+                    <ellipse class="petal-yellow" cx="16" cy="20" rx="15" ry="27" transform="rotate(130 16 20)"/>
+                    <ellipse class="petal-light" cx="-16" cy="20" rx="15" ry="27" transform="rotate(-130 -16 20)"/>
+                    <ellipse class="petal-yellow" cx="-27" cy="-8" rx="15" ry="27" transform="rotate(-65 -27 -8)"/>
+                    <circle class="flower-center" cx="0" cy="0" r="12"/>
+                </g>
             </g>
 
-
-            <!-- Flor 4 -->
-            <g class="flower" transform="translate(465 245)">
-
-                <ellipse class="petal-yellow" cx="0" cy="-30"
-                         rx="17" ry="29"/>
-
-                <ellipse class="petal-light" cx="29" cy="-10"
-                         rx="17" ry="29"
-                         transform="rotate(65 29 -10)"/>
-
-                <ellipse class="petal-yellow" cx="18" cy="22"
-                         rx="17" ry="29"
-                         transform="rotate(130 18 22)"/>
-
-                <ellipse class="petal-light" cx="-18" cy="22"
-                         rx="17" ry="29"
-                         transform="rotate(-130 -18 22)"/>
-
-                <ellipse class="petal-yellow" cx="-29" cy="-10"
-                         rx="17" ry="29"
-                         transform="rotate(-65 -29 -10)"/>
-
-                <circle class="center" cx="0" cy="0" r="13"/>
+            <g transform="translate(465 245)">
+                <g class="flower-bloom" style="--delay:6s">
+                    <ellipse class="petal-yellow" cx="0" cy="-30" rx="17" ry="29"/>
+                    <ellipse class="petal-light" cx="29" cy="-10" rx="17" ry="29" transform="rotate(65 29 -10)"/>
+                    <ellipse class="petal-yellow" cx="18" cy="22" rx="17" ry="29" transform="rotate(130 18 22)"/>
+                    <ellipse class="petal-light" cx="-18" cy="22" rx="17" ry="29" transform="rotate(-130 -18 22)"/>
+                    <ellipse class="petal-yellow" cx="-29" cy="-10" rx="17" ry="29" transform="rotate(-65 -29 -10)"/>
+                    <circle class="flower-center" cx="0" cy="0" r="13"/>
+                </g>
             </g>
 
-
-            <!-- Flor 5 -->
-            <g class="flower" transform="translate(215 185)">
-
-                <ellipse class="petal-light" cx="0" cy="-27"
-                         rx="15" ry="26"/>
-
-                <ellipse class="petal-yellow" cx="26" cy="-9"
-                         rx="15" ry="26"
-                         transform="rotate(65 26 -9)"/>
-
-                <ellipse class="petal-light" cx="16" cy="19"
-                         rx="15" ry="26"
-                         transform="rotate(130 16 19)"/>
-
-                <ellipse class="petal-yellow" cx="-16" cy="19"
-                         rx="15" ry="26"
-                         transform="rotate(-130 -16 19)"/>
-
-                <ellipse class="petal-light" cx="-26" cy="-9"
-                         rx="15" ry="26"
-                         transform="rotate(-65 -26 -9)"/>
-
-                <circle class="center" cx="0" cy="0" r="11"/>
+            <g transform="translate(215 185)">
+                <g class="flower-bloom" style="--delay:6.4s">
+                    <ellipse class="petal-light" cx="0" cy="-27" rx="15" ry="26"/>
+                    <ellipse class="petal-yellow" cx="26" cy="-9" rx="15" ry="26" transform="rotate(65 26 -9)"/>
+                    <ellipse class="petal-light" cx="16" cy="19" rx="15" ry="26" transform="rotate(130 16 19)"/>
+                    <ellipse class="petal-yellow" cx="-16" cy="19" rx="15" ry="26" transform="rotate(-130 -16 19)"/>
+                    <ellipse class="petal-light" cx="-26" cy="-9" rx="15" ry="26" transform="rotate(-65 -26 -9)"/>
+                    <circle class="flower-center" cx="0" cy="0" r="11"/>
+                </g>
             </g>
 
-
-            <!-- Flor 6 -->
-            <g class="flower" transform="translate(400 95)">
-
-                <ellipse class="petal-yellow" cx="0" cy="-27"
-                         rx="15" ry="26"/>
-
-                <ellipse class="petal-light" cx="26" cy="-9"
-                         rx="15" ry="26"
-                         transform="rotate(65 26 -9)"/>
-
-                <ellipse class="petal-yellow" cx="16" cy="19"
-                         rx="15" ry="26"
-                         transform="rotate(130 16 19)"/>
-
-                <ellipse class="petal-light" cx="-16" cy="19"
-                         rx="15" ry="26"
-                         transform="rotate(-130 -16 19)"/>
-
-                <ellipse class="petal-yellow" cx="-26" cy="-9"
-                         rx="15" ry="26"
-                         transform="rotate(-65 -26 -9)"/>
-
-                <circle class="center" cx="0" cy="0" r="11"/>
+            <g transform="translate(400 95)">
+                <g class="flower-bloom" style="--delay:6.8s">
+                    <ellipse class="petal-yellow" cx="0" cy="-27" rx="15" ry="26"/>
+                    <ellipse class="petal-light" cx="26" cy="-9" rx="15" ry="26" transform="rotate(65 26 -9)"/>
+                    <ellipse class="petal-yellow" cx="16" cy="19" rx="15" ry="26" transform="rotate(130 16 19)"/>
+                    <ellipse class="petal-light" cx="-16" cy="19" rx="15" ry="26" transform="rotate(-130 -16 19)"/>
+                    <ellipse class="petal-yellow" cx="-26" cy="-9" rx="15" ry="26" transform="rotate(-65 -26 -9)"/>
+                    <circle class="flower-center" cx="0" cy="0" r="11"/>
+                </g>
             </g>
 
-
-            <!-- Flor central grande -->
-            <g class="flower" transform="translate(300 120)">
-
-                <ellipse class="petal-light" cx="0" cy="-38"
-                         rx="20" ry="36"/>
-
-                <ellipse class="petal-yellow" cx="35" cy="-12"
-                         rx="20" ry="36"
-                         transform="rotate(65 35 -12)"/>
-
-                <ellipse class="petal-light" cx="22" cy="28"
-                         rx="20" ry="36"
-                         transform="rotate(130 22 28)"/>
-
-                <ellipse class="petal-yellow" cx="-22" cy="28"
-                         rx="20" ry="36"
-                         transform="rotate(-130 -22 28)"/>
-
-                <ellipse class="petal-light" cx="-35" cy="-12"
-                         rx="20" ry="36"
-                         transform="rotate(-65 -35 -12)"/>
-
-                <circle class="center" cx="0" cy="0" r="15"/>
+            <g transform="translate(300 120)">
+                <g class="flower-bloom" style="--delay:7.2s">
+                    <ellipse class="petal-light" cx="0" cy="-38" rx="20" ry="36"/>
+                    <ellipse class="petal-yellow" cx="35" cy="-12" rx="20" ry="36" transform="rotate(65 35 -12)"/>
+                    <ellipse class="petal-light" cx="22" cy="28" rx="20" ry="36" transform="rotate(130 22 28)"/>
+                    <ellipse class="petal-yellow" cx="-22" cy="28" rx="20" ry="36" transform="rotate(-130 -22 28)"/>
+                    <ellipse class="petal-light" cx="-35" cy="-12" rx="20" ry="36" transform="rotate(-65 -35 -12)"/>
+                    <circle class="flower-center" cx="0" cy="0" r="15"/>
+                </g>
             </g>
 
-
-            <!-- FLORECITAS PEQUEÑAS -->
-            <g class="flower" transform="translate(355 205) scale(.55)">
-                <circle class="center" cx="0" cy="0" r="10"/>
-                <ellipse class="petal-light" cx="0" cy="-25" rx="12" ry="22"/>
-                <ellipse class="petal-light" cx="25" cy="0" rx="12" ry="22"
-                         transform="rotate(90 25 0)"/>
-                <ellipse class="petal-light" cx="0" cy="25" rx="12" ry="22"/>
-                <ellipse class="petal-light" cx="-25" cy="0" rx="12" ry="22"
-                         transform="rotate(90 -25 0)"/>
+            <g transform="translate(355 205)">
+                <g class="flower-bloom" style="--delay:7.6s">
+                    <circle class="flower-center" cx="0" cy="0" r="9"/>
+                    <ellipse class="petal-light" cx="0" cy="-22" rx="11" ry="20"/>
+                    <ellipse class="petal-light" cx="22" cy="0" rx="11" ry="20" transform="rotate(90 22 0)"/>
+                    <ellipse class="petal-light" cx="0" cy="22" rx="11" ry="20"/>
+                    <ellipse class="petal-light" cx="-22" cy="0" rx="11" ry="20" transform="rotate(90 -22 0)"/>
+                </g>
             </g>
-
 
             <!-- MOÑO -->
             <g class="ribbon">
-
-                <path class="ribbon-fill"
-                      d="M300 750
-                         C245 715 205 740 215 780
-                         C225 815 270 805 300 775
-                         Z"/>
-
-                <path class="ribbon-fill"
-                      d="M300 750
-                         C355 715 395 740 385 780
-                         C375 815 330 805 300 775
-                         Z"/>
-
-                <path class="ribbon-fill"
-                      d="M288 770
-                         L260 855
-                         L300 825
-                         L340 855
-                         L312 770
-                         Z"/>
-
-                <ellipse
-                    cx="300"
-                    cy="765"
-                    rx="25"
-                    ry="20"
-                    fill="#d98991"
-                    stroke="#ffc2bc"
-                    stroke-width="2"/>
-
+                <path class="ribbon-fill" d="M300 750 C245 715 205 740 215 780 C225 815 270 805 300 775 Z"/>
+                <path class="ribbon-fill" d="M300 750 C355 715 395 740 385 780 C375 815 330 805 300 775 Z"/>
+                <path class="ribbon-fill" d="M288 770 L260 855 L300 825 L340 855 L312 770 Z"/>
+                <ellipse cx="300" cy="765" rx="25" ry="20" fill="#d98991" stroke="#ffc2bc" stroke-width="2"/>
             </g>
-
         </svg>
+        </div><!-- /.ramo-col -->
 
+        <div class="contenido-col">
 
-        <!-- MENSAJE -->
+        <!-- ================= MENSAJE ================= -->
         <div class="mensaje">
-
             <h2>
                 Te entrego de manera muy especial
-                <span>“Conocida”.</span>
+                <span>"Conocida".</span>
             </h2>
-
-            <p>
-                Siempre te desearé lo mejor
-                y que cumplas todas tus metas.
-            </p>
-
-            <strong>
-                Tú puedes con todo.
-            </strong>
-
+            <p>Siempre te desearé lo mejor y que cumplas todas tus metas.</p>
+            <strong>Tú puedes con todo.</strong>
         </div>
 
-
-        <!-- FINAL -->
+        <!-- ================= REPRODUCTOR ================= -->
         <div class="final">
 
-            <a
-              href="https://open.spotify.com/track/3hMvsYZjU1pFH0xoywKXA9"
-              target="_blank"
-              rel="noopener noreferrer">
+            <div class="player-card" id="playerCard">
 
-                ✨ Dame click ✨
+                <div class="player-top">
+                    <div class="album-art">
+                        <svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <defs>
+                                <radialGradient id="albumGrad" cx="50%" cy="35%" r="75%">
+                                    <stop offset="0%" stop-color="#ffdf9a"/>
+                                    <stop offset="100%" stop-color="#e07a5f"/>
+                                </radialGradient>
+                            </defs>
+                            <rect width="100" height="100" rx="14" fill="url(#albumGrad)"/>
+                            <circle cx="50" cy="42" r="16" fill="#fff3d6" opacity=".85"/>
+                            <circle cx="50" cy="42" r="6" fill="#e99327"/>
+                        </svg>
+                    </div>
 
-            </a>
+                    <div class="track-info">
+                        <div class="track-title">Do Better</div>
+                        <div class="track-artist">Cuco</div>
+                    </div>
 
-        </div>
+                    <div class="brand" title="Spotify">
+                        <svg viewBox="0 0 24 24" width="18" height="18">
+                            <circle cx="12" cy="12" r="11" fill="#1DB954"/>
+                            <path d="M6.5 9.8c3-0.8 7-0.5 9.8 1.1M7 13.2c2.6-0.6 6-0.4 8.3 1M7.4 16.3c2.1-0.4 4.8-0.3 6.6 0.8"
+                                  stroke="#0c0710" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+                        </svg>
+                        <span>Spotify</span>
+                    </div>
+                </div>
+
+                <div class="progress-row">
+                    <span class="time time-current" id="timeCurrent">0:00</span>
+                    <div class="progress-track" id="progressTrack">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="time time-total" id="timeTotal">0:00</span>
+                </div>
+
+                <div class="controls-row">
+
+                    <button class="ctrl-btn" id="btnShuffle" type="button" title="Aleatorio" aria-disabled="true">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M3 6h3.5L15 18h6M3 18h3.5L11 12M15 6h6"/>
+                            <path d="M18 3l3 3-3 3M18 15l3 3-3 3"/>
+                        </svg>
+                    </button>
+
+                    <button class="ctrl-btn" id="btnPrev" type="button" title="Reiniciar">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M6 6h2v12H6zM20 6L10 12l10 6z"/>
+                        </svg>
+                    </button>
+
+                    <button class="play-btn" id="btnPlay" type="button" title="Reproducir">
+                        <svg id="iconPlay" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg id="iconPause" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="display:none">
+                            <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
+                        </svg>
+                    </button>
+
+                    <button class="ctrl-btn" id="btnNext" type="button" title="Siguiente" aria-disabled="true">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M16 6h2v12h-2zM4 6l10 6-10 6z"/>
+                        </svg>
+                    </button>
+
+                    <button class="ctrl-btn heart-btn" id="btnHeart" type="button" title="Me gusta">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M12 20s-7-4.35-9.5-8.8C.7 7.9 2.4 4.5 6 4.5c2 0 3.4 1.1 6 3.6 2.6-2.5 4-3.6 6-3.6 3.6 0 5.3 3.4 3.5 6.7C19 15.65 12 20 12 20z"/>
+                        </svg>
+                    </button>
+
+                </div>
+
+                <p class="player-hint" id="playerHint">Toca para escuchar aquí mismo</p>
+            </div>
+
+            <p class="final-note">✨ Que la vida siempre te sorprenda ✨</p>
+        </div><!-- /.final -->
+
+        </div><!-- /.contenido-col -->
+
+        </div><!-- /.escena-layout -->
+
+        <!-- Contenedor invisible donde vive el reproductor real de Spotify -->
+        <div id="spotify-embed" class="spotify-mount"></div>
 
     </section>
-
 </div>
 
-
-<script>
-
-function crearEstrellas(){
-
-    const app = document.getElementById("app");
-
-    for(let i = 0; i < 15; i++){
-
-        const estrella = document.createElement("div");
-
-        estrella.className = "spark";
-
-        estrella.style.left = Math.random()*100 + "%";
-        estrella.style.top = Math.random()*100 + "%";
-        estrella.style.animationDelay = (Math.random()*3) + "s";
-
-        app.appendChild(estrella);
-    }
-}
-
-function abrirFlores(){
-
-    const portada = document.getElementById("portada");
-    const escena = document.getElementById("escena");
-
-    portada.classList.add("oculta");
-
-    setTimeout(() => {
-
-        escena.classList.add("visible");
-
-    },700);
-
-}
-
-crearEstrellas();
-
-</script>
-
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+<script src="script.js"></script>
 </body>
 </html>
